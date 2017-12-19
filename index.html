@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <style media="screen">
+      .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s
+    }
+    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0
+    }
+  </style>
+</head>
+<body>
+  <main id="main">
+
+    <h1>Prueba con vue js</h1>
+
+    <button type="button" @click="clickImage(0,!imgs[contador].show)" name="button">Imagen 1</button>
+    <button type="button" @click="clickImage(1,!imgs[contador].show)" name="button">Imagen 2</button>
+    <button type="button" @click="clickImage(2,!imgs[contador].show)" name="button">Imagen 3</button>
+
+    <i v-if="cargar" class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+
+    <transition name="fade">
+      <img v-if="imgs[contador].show" :src="imgs[contador].name" alt="">
+  </transition>
+
+</main>
+
+
+  <script type="text/javascript" src="vue.js"></script>
+  <script src="https://use.fontawesome.com/a4c73a01d9.js"></script>
+  <script type="text/javascript">
+
+      var vm = new Vue({
+        el:'#main',
+        data:{
+          imgs: [
+          {name: 'http://lorempixel.com/output/people-q-c-640-480-3.jpg',show : false},
+          {name: 'http://lorempixel.com/output/sports-q-c-640-480-1.jpg',show : false},
+          {name: 'http://lorempixel.com/output/sports-q-c-640-480-2.jpg',show : false}
+        ],
+        contador: 0,
+        cargar: false
+      },
+        methods: {
+          clickImage: function(number,valor) {
+              this.tiempo();
+              this.contador = number;
+              this.imgs[number].show = valor;
+          },
+          tiempo : function(){
+            var self = this;
+            this.cargar = true;
+            setTimeout(function () {
+                              self.cargar = false;
+                          }, 2500);
+          }
+        }
+      });
+
+  </script>
+</body>
+</html>
